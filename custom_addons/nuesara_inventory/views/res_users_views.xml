@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_users_form_nuesara_inherits" model="ir.ui.view">
+            <field name="name">res.users.form.nuesara.inherits</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="nuesara_profile" string="Profil &amp; Pengaturan">
+                        <header>
+                            <button name="action_change_password" string="Ubah Password" type="object" class="btn-primary"/>
+                            <button name="action_logout" string="Logout" type="object" class="btn-secondary"/>
+                        </header>
+                        <group>
+                            <group string="Identitas">
+                                <field name="name" readonly="1"/>
+                                <field name="user_role" widget="badge"/>
+                            </group>
+                            <group string="Keamanan">
+                                <field name="login"/>
+                                <field name="password_last_updated"/>
+                                <field name="two_factor_auth" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Notifikasi">
+                                <field name="notification_type"/>
+                                <field name="alert_stock_low" invisible="not alert_stock_low"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_users_form_simple_modif_nuesara" model="ir.ui.view">
+            <field name="name">res.users.preferences.nuesara</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="nuesara_profile_simple" string="Profil &amp; Pengaturan">
+                        <header>
+                            <button name="action_logout" string="Logout" type="object" class="btn-secondary"/>
+                        </header>
+                        <group>
+                            <group string="Identitas">
+                                <field name="name" readonly="1"/>
+                                <field name="user_role" widget="badge"/>
+                            </group>
+                            <group string="Pengaturan">
+                                <field name="two_factor_auth" widget="boolean_toggle"/>
+                                <field name="alert_stock_low"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <!-- Hide standard tabs by index -->
+                <xpath expr="//notebook/page[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

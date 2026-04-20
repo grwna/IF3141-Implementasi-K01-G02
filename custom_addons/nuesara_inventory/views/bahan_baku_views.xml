@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action -->
+        <!-- Dashboard Tree View (No 'New' Button) -->
+        <record id="view_bahan_baku_tree_dashboard" model="ir.ui.view">
+            <field name="name">bahan.baku.tree.dashboard</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="status_stok == 'kritis'" create="0">
+                    <field name="name" class="fw-bold"/>
+                    <field name="kategori"/>
+                    <field name="saldo_stok"/>
+                    <field name="satuan"/>
+                    <field name="status_stok" widget="badge" 
+                           decoration-danger="status_stok == 'kritis'"
+                           decoration-success="status_stok == 'aman'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action: Dashboard (ReadOnly) -->
+        <record id="action_bahan_baku_dashboard" model="ir.actions.act_window">
+            <field name="name">Inventory Dashboard</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bahan_baku_tree_dashboard"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Monitoring stock levels.
+                </p>
+            </field>
+        </record>
+
+        <!-- Action: Master Data (Edit) -->
+        <record id="action_bahan_baku_master" model="ir.actions.act_window">
+            <field name="name">Master Bahan Baku</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_bahan_baku_tree" model="ir.ui.view">
+            <field name="name">bahan.baku.tree</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" class="fw-bold"/>
+                    <field name="kategori"/>
+                    <field name="saldo_stok"/>
+                    <field name="satuan"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_bahan_baku_form" model="ir.ui.view">
+            <field name="name">bahan.baku.form</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="unlink" type="object" string="Hapus" 
+                                confirm="Yakin hapus?" class="btn-secondary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nama Bahan..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Group Dasar">
+                                <field name="kategori"/>
+                                <field name="satuan"/>
+                            </group>
+                            <group string="Group Stok">
+                                <field name="saldo_stok"/>
+                                <field name="nilai_minimum"/>
+                                <field name="estimasi_pemakaian_harian"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_bahan_baku_search" model="ir.ui.view">
+            <field name="name">bahan.baku.search</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="kategori"/>
+                    <filter string="Kritis" name="filter_kritis" domain="[('status_stok', '=', 'kritis')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Kategori" name="group_kategori" context="{'group_by': 'kategori'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

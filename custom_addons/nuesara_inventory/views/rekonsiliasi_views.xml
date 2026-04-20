@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action -->
+        <record id="action_rekonsiliasi" model="ir.actions.act_window">
+            <field name="name">Rekonsiliasi Keuangan</field>
+            <field name="res_model">rekonsiliasi.keuangan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_rekonsiliasi_tree" model="ir.ui.view">
+            <field name="name">rekonsiliasi.keuangan.tree</field>
+            <field name="model">rekonsiliasi.keuangan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="bahan_id"/>
+                    <field name="pemakaian_aktual"/>
+                    <field name="penjualan_pos"/>
+                    <field name="selisih"/>
+                    <field name="status" widget="badge"
+                           decoration-success="status == 'match'"
+                           decoration-danger="status == 'mismatch'"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
