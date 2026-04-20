@@ -58,6 +58,18 @@
                   action="nuesara_inventory.action_rekonsiliasi"
                   sequence="10"/>
 
+        <menuitem id="nuesara_laporan_harian_menu"
+                  name="Laporan Harian"
+                  parent="nuesara_reporting_menu"
+                  action="nuesara_inventory.action_laporan_harian"
+                  sequence="20"/>
+
+        <menuitem id="nuesara_laporan_bulanan_menu"
+                  name="Laporan Bulanan"
+                  parent="nuesara_reporting_menu"
+                  action="nuesara_inventory.action_laporan_bulanan"
+                  sequence="30"/>
+
         <!-- Configuration -->
         <menuitem id="nuesara_config_menu"
                   name="Configuration"

@@ -54,5 +54,44 @@
             </field>
         </record>
 
+        <!-- Usage Analysis (Pivot) -->
+        <record id="view_stok_keluar_line_pivot" model="ir.ui.view">
+            <field name="name">stok.keluar.line.pivot</field>
+            <field name="model">stok.keluar.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Analisis Pemakaian">
+                    <field name="tanggal" interval="day" type="row"/>
+                    <field name="bahan_id" type="row"/>
+                    <field name="jumlah_pakai" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Usage Analysis (Graph) -->
+        <record id="view_stok_keluar_line_graph" model="ir.ui.view">
+            <field name="name">stok.keluar.line.graph</field>
+            <field name="model">stok.keluar.line</field>
+            <field name="arch" type="xml">
+                <graph string="Tren Pemakaian" type="line">
+                    <field name="tanggal" interval="day"/>
+                    <field name="jumlah_pakai" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Action: Laporan Harian (UC-11) -->
+        <record id="action_laporan_harian" model="ir.actions.act_window">
+            <field name="name">Laporan Harian</field>
+            <field name="res_model">stok.keluar.line</field>
+            <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <!-- Action: Laporan Bulanan (UC-12) -->
+        <record id="action_laporan_bulanan" model="ir.actions.act_window">
+            <field name="name">Laporan Bulanan</field>
+            <field name="res_model">stok.keluar.line</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="context">{'pivot_row_groupby': ['tanggal:month', 'bahan_id']}</field>
+        </record>
     </data>
 </odoo>

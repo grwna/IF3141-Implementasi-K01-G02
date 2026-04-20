@@ -26,3 +26,4 @@ class StokKeluarLine(models.Model):
     bahan_id = fields.Many2one('bahan.baku', string="Bahan", required=True)
     jumlah_pakai = fields.Float(string="Jumlah Pakai", required=True)
     satuan = fields.Selection(related='bahan_id.satuan', string="Satuan", readonly=True)
+    tanggal = fields.Date(related='stok_keluar_id.tanggal', string="Tanggal", store=True)
