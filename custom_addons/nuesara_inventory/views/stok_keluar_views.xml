@@ -16,6 +16,9 @@
                 <tree>
                     <field name="tanggal"/>
                     <field name="shift"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'confirmed'"/>
                 </tree>
             </field>
         </record>
@@ -27,20 +30,22 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="action_confirm_usage" string="Simpan" type="object" class="btn-primary"/>
+                        <button name="action_confirm_usage" string="Simpan" type="object"
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="tanggal"/>
+                                <field name="tanggal" readonly="state == 'confirmed'"/>
                             </group>
                             <group>
-                                <field name="shift"/>
+                                <field name="shift" readonly="state == 'confirmed'"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Lines" name="lines">
-                                <field name="line_ids">
+                                <field name="line_ids" readonly="state == 'confirmed'">
                                     <tree editable="bottom">
                                         <field name="bahan_id"/>
                                         <field name="jumlah_pakai"/>
@@ -79,19 +84,5 @@
             </field>
         </record>
 
-        <!-- Action: Laporan Harian (UC-11) -->
-        <record id="action_laporan_harian" model="ir.actions.act_window">
-            <field name="name">Laporan Harian</field>
-            <field name="res_model">stok.keluar.line</field>
-            <field name="view_mode">pivot,graph</field>
-        </record>
-
-        <!-- Action: Laporan Bulanan (UC-12) -->
-        <record id="action_laporan_bulanan" model="ir.actions.act_window">
-            <field name="name">Laporan Bulanan</field>
-            <field name="res_model">stok.keluar.line</field>
-            <field name="view_mode">pivot,graph</field>
-            <field name="context">{'pivot_row_groupby': ['tanggal:month', 'bahan_id']}</field>
-        </record>
     </data>
 </odoo>

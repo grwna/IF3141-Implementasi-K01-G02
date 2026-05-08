@@ -7,11 +7,12 @@
         - Master Data Bahan Baku
         - Stok Masuk (Supplier deliveries)
         - Stok Keluar (Daily usage)
-        - Financial Reconciliation
+        - Stock reporting
     """,
     'author': "G02-K01",
     'category': 'Inventory',
     'version': '1.0',
+    'license': 'LGPL-3',
     'depends': ['base', 'web'],
     'data': [
         'security/groups.xml',
@@ -19,7 +20,9 @@
         'views/bahan_baku_views.xml',
         'views/stok_masuk_views.xml',
         'views/stok_keluar_views.xml',
-        'views/rekonsiliasi_views.xml',
+        'views/laporan_stok_views.xml',
+        'views/permintaan_pengadaan_views.xml',
+        'views/activity_log_views.xml',
         'views/res_users_views.xml',
         'views/menus.xml',
     ],

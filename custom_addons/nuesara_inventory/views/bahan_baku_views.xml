@@ -7,13 +7,14 @@
             <field name="name">bahan.baku.tree.dashboard</field>
             <field name="model">bahan.baku</field>
             <field name="arch" type="xml">
-                <tree decoration-danger="status_stok == 'kritis'" create="0">
+                <tree decoration-danger="status_stok == 'habis'" decoration-warning="status_stok == 'menipis'" create="0">
                     <field name="name" class="fw-bold"/>
                     <field name="kategori"/>
                     <field name="saldo_stok"/>
                     <field name="satuan"/>
                     <field name="status_stok" widget="badge" 
-                           decoration-danger="status_stok == 'kritis'"
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
                            decoration-success="status_stok == 'aman'"/>
                 </tree>
             </field>
@@ -44,13 +45,45 @@
             <field name="name">bahan.baku.tree</field>
             <field name="model">bahan.baku</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree delete="0">
                     <field name="name" class="fw-bold"/>
                     <field name="kategori"/>
                     <field name="saldo_stok"/>
+                    <field name="nilai_minimum"/>
                     <field name="satuan"/>
+                    <field name="status_stok" widget="badge"
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
+                           decoration-success="status_stok == 'aman'"/>
                 </tree>
             </field>
+        </record>
+
+        <record id="view_bahan_baku_threshold_tree" model="ir.ui.view">
+            <field name="name">bahan.baku.threshold.tree</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="0" delete="0"
+                      decoration-danger="status_stok == 'habis'"
+                      decoration-warning="status_stok == 'menipis'">
+                    <field name="name" readonly="1"/>
+                    <field name="kategori" readonly="1"/>
+                    <field name="saldo_stok" readonly="1"/>
+                    <field name="nilai_minimum"/>
+                    <field name="satuan" readonly="1"/>
+                    <field name="status_stok" widget="badge" readonly="1"
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
+                           decoration-success="status_stok == 'aman'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_bahan_baku_threshold" model="ir.actions.act_window">
+            <field name="name">Konfigurasi Threshold Minimum</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_bahan_baku_threshold_tree"/>
         </record>
 
         <!-- Form View -->
@@ -58,10 +91,11 @@
             <field name="name">bahan.baku.form</field>
             <field name="model">bahan.baku</field>
             <field name="arch" type="xml">
-                <form>
+                <form delete="0">
                     <header>
-                        <button name="unlink" type="object" string="Hapus" 
-                                confirm="Yakin hapus?" class="btn-secondary"/>
+                        <button name="action_open_delete_wizard" type="object" string="Hapus"
+                                confirm="Konfirmasi tahap 1: lanjutkan proses hapus bahan baku?"
+                                class="btn-secondary"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -85,6 +119,24 @@
             </field>
         </record>
 
+        <record id="view_bahan_baku_delete_wizard_form" model="ir.ui.view">
+            <field name="name">bahan.baku.delete.wizard.form</field>
+            <field name="model">bahan.baku.delete.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Konfirmasi Hapus Tahap 2">
+                    <group>
+                        <field name="bahan_id"/>
+                        <field name="confirmation_text" placeholder="HAPUS"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_delete" string="Konfirmasi Hapus Permanen"
+                                type="object" class="btn-primary"/>
+                        <button string="Batal" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
         <!-- Search View -->
         <record id="view_bahan_baku_search" model="ir.ui.view">
             <field name="name">bahan.baku.search</field>
@@ -93,9 +145,11 @@
                 <search>
                     <field name="name"/>
                     <field name="kategori"/>
-                    <filter string="Kritis" name="filter_kritis" domain="[('status_stok', '=', 'kritis')]"/>
+                    <filter string="Menipis" name="filter_menipis" domain="[('status_stok', '=', 'menipis')]"/>
+                    <filter string="Habis" name="filter_habis" domain="[('status_stok', '=', 'habis')]"/>
                     <group expand="0" string="Group By">
                         <filter string="Kategori" name="group_kategori" context="{'group_by': 'kategori'}"/>
+                        <filter string="Status Stok" name="group_status_stok" context="{'group_by': 'status_stok'}"/>
                     </group>
                 </search>
             </field>
