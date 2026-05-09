@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Root Menu -->
+        <menuitem id="nuesara_inventory_root_menu"
+                  name="Nuesara Inventory"
+                  web_icon="base,static/description/icon.png"
+                  groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="1"/>
+
+        <!-- Dashboard: View only -->
+        <menuitem id="nuesara_dashboard_menu"
+                  name="Dashboard Inventory"
+                  parent="nuesara_inventory_root_menu"
+                  action="action_bahan_baku_dashboard"
+                  groups="nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_admin"
+                  sequence="1"/>
+
+        <!-- Master Data -->
+        <menuitem id="nuesara_master_data_menu"
+                  name="Manajemen Bahan Baku"
+                  parent="nuesara_inventory_root_menu"
+                  groups="nuesara_inventory.group_nuesara_admin"
+                  sequence="10"/>
+
+        <!-- Master Bahan Baku: For Input -->
+        <menuitem id="nuesara_bahan_baku_menu"
+                  name="Master Bahan Baku"
+                  parent="nuesara_master_data_menu"
+                  action="action_bahan_baku_master"
+                  groups="nuesara_inventory.group_nuesara_admin"
+                  sequence="10"/>
+
+        <menuitem id="nuesara_threshold_menu"
+                  name="Konfigurasi Threshold"
+                  parent="nuesara_master_data_menu"
+                  action="action_bahan_baku_threshold"
+                  groups="nuesara_inventory.group_nuesara_admin"
+                  sequence="20"/>
+
+        <!-- Transactions -->
+        <menuitem id="nuesara_transactions_menu"
+                  name="Transactions"
+                  parent="nuesara_inventory_root_menu"
+                  groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_admin"
+                  sequence="20"/>
+
+        <menuitem id="nuesara_stok_masuk_menu"
+                  name="Pencatatan Stok Masuk"
+                  parent="nuesara_transactions_menu"
+                  action="action_stok_masuk"
+                  groups="nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_admin"
+                  sequence="10"/>
+
+        <menuitem id="nuesara_stok_keluar_menu"
+                  name="Pencatatan Pemakaian Harian"
+                  parent="nuesara_transactions_menu"
+                  action="action_stok_keluar"
+                  groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_admin"
+                  sequence="20"/>
+
+        <menuitem id="nuesara_permintaan_pengadaan_menu"
+                  name="Permintaan Pengadaan"
+                  parent="nuesara_transactions_menu"
+                  action="nuesara_inventory.action_permintaan_pengadaan"
+                  groups="nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_admin"
+                  sequence="30"/>
+
+        <!-- Reporting -->
+        <menuitem id="nuesara_reporting_menu"
+                  name="Reporting"
+                  parent="nuesara_inventory_root_menu"
+                  groups="nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="30"/>
+
+        <menuitem id="nuesara_laporan_harian_menu"
+                  name="Laporan Harian"
+                  parent="nuesara_reporting_menu"
+                  action="nuesara_inventory.action_laporan_harian"
+                  groups="nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="10"/>
+
+        <menuitem id="nuesara_laporan_bulanan_menu"
+                  name="Laporan Bulanan"
+                  parent="nuesara_reporting_menu"
+                  action="nuesara_inventory.action_laporan_bulanan"
+                  groups="nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="20"/>
+
+        <menuitem id="nuesara_activity_log_menu"
+                  name="Log Aktivitas"
+                  parent="nuesara_reporting_menu"
+                  action="nuesara_inventory.action_nuesara_activity_log"
+                  groups="nuesara_inventory.group_nuesara_admin"
+                  sequence="30"/>
+
+        <!-- Configuration -->
+        <menuitem id="nuesara_config_menu"
+                  name="Configuration"
+                  parent="nuesara_inventory_root_menu"
+                  groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="40"/>
+
+        <menuitem id="nuesara_profile_menu"
+                  name="Profil Saya"
+                  parent="nuesara_config_menu"
+                  action="nuesara_inventory.action_nuesara_profile_server"
+                  groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
+                  sequence="10"/>
+    </data>
+</odoo>

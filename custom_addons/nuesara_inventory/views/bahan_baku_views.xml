@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action -->
+        <!-- Dashboard Tree View (No 'New' Button) -->
+        <record id="view_bahan_baku_tree_dashboard" model="ir.ui.view">
+            <field name="name">bahan.baku.tree.dashboard</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="status_stok == 'habis'" decoration-warning="status_stok == 'menipis'" create="0">
+                    <field name="name" class="fw-bold"/>
+                    <field name="kategori"/>
+                    <field name="saldo_stok"/>
+                    <field name="satuan"/>
+                    <field name="status_stok" widget="badge" 
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
+                           decoration-success="status_stok == 'aman'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action: Dashboard (ReadOnly) -->
+        <record id="action_bahan_baku_dashboard" model="ir.actions.act_window">
+            <field name="name">Inventory Dashboard</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bahan_baku_tree_dashboard"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Monitoring stock levels.
+                </p>
+            </field>
+        </record>
+
+        <!-- Action: Master Data (Edit) -->
+        <record id="action_bahan_baku_master" model="ir.actions.act_window">
+            <field name="name">Master Bahan Baku</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_bahan_baku_tree" model="ir.ui.view">
+            <field name="name">bahan.baku.tree</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree string="Master Bahan Baku" delete="0" default_order="name asc">
+                    <field name="name" class="fw-bold"/>
+                    <field name="kategori"/>
+                    <field name="saldo_stok"/>
+                    <field name="nilai_minimum"/>
+                    <field name="satuan"/>
+                    <field name="status_stok" widget="badge"
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
+                           decoration-success="status_stok == 'aman'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_bahan_baku_master" model="ir.actions.act_window">
+            <field name="view_id" ref="view_bahan_baku_tree"/>
+        </record>
+
+        <record id="view_bahan_baku_threshold_tree" model="ir.ui.view">
+            <field name="name">bahan.baku.threshold.tree</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="0" delete="0"
+                      decoration-danger="status_stok == 'habis'"
+                      decoration-warning="status_stok == 'menipis'">
+                    <field name="name" readonly="1"/>
+                    <field name="kategori" readonly="1"/>
+                    <field name="saldo_stok" readonly="1"/>
+                    <field name="nilai_minimum"/>
+                    <field name="satuan" readonly="1"/>
+                    <field name="status_stok" widget="badge" readonly="1"
+                           decoration-danger="status_stok == 'habis'"
+                           decoration-warning="status_stok == 'menipis'"
+                           decoration-success="status_stok == 'aman'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_bahan_baku_threshold" model="ir.actions.act_window">
+            <field name="name">Konfigurasi Threshold Minimum</field>
+            <field name="res_model">bahan.baku</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_bahan_baku_threshold_tree"/>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_bahan_baku_form" model="ir.ui.view">
+            <field name="name">bahan.baku.form</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <form string="Bahan Baku" delete="0">
+                    <header>
+                        <button name="action_open_delete_wizard" type="object" string="Arsipkan"
+                                confirm="Konfirmasi tahap 1: lanjutkan proses arsip bahan baku?"
+                                class="btn-secondary" invisible="not id"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Contoh: Kopi Arabika"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Informasi Bahan">
+                                <field name="kategori"/>
+                                <field name="satuan"/>
+                                <field name="status_stok" widget="badge" readonly="1"
+                                       decoration-danger="status_stok == 'habis'"
+                                       decoration-warning="status_stok == 'menipis'"
+                                       decoration-success="status_stok == 'aman'"/>
+                            </group>
+                            <group string="Informasi Stok">
+                                <field name="saldo_stok"/>
+                                <field name="nilai_minimum"/>
+                                <field name="estimasi_pemakaian_harian"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_bahan_baku_master_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bahan_baku_tree"/>
+            <field name="act_window_id" ref="action_bahan_baku_master"/>
+        </record>
+
+        <record id="action_bahan_baku_master_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_bahan_baku_form"/>
+            <field name="act_window_id" ref="action_bahan_baku_master"/>
+        </record>
+
+        <record id="view_bahan_baku_delete_wizard_form" model="ir.ui.view">
+            <field name="name">bahan.baku.archive.wizard.form</field>
+            <field name="model">bahan.baku.delete.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Konfirmasi Arsip Bahan Baku">
+                    <group>
+                        <field name="bahan_id"/>
+                        <field name="confirmation_text" placeholder="HAPUS"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_delete" string="Konfirmasi Arsip"
+                                type="object" class="btn-primary"/>
+                        <button string="Batal" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record id="view_bahan_baku_search" model="ir.ui.view">
+            <field name="name">bahan.baku.search</field>
+            <field name="model">bahan.baku</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="kategori"/>
+                    <filter string="Menipis" name="filter_menipis" domain="[('status_stok', '=', 'menipis')]"/>
+                    <filter string="Habis" name="filter_habis" domain="[('status_stok', '=', 'habis')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Kategori" name="group_kategori" context="{'group_by': 'kategori'}"/>
+                        <filter string="Status Stok" name="group_status_stok" context="{'group_by': 'status_stok'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

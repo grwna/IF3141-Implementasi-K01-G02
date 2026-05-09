@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action -->
+        <record id="action_stok_masuk" model="ir.actions.act_window">
+            <field name="name">Input Stok Masuk</field>
+            <field name="res_model">stok.masuk</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_stok_masuk_tree" model="ir.ui.view">
+            <field name="name">stok.masuk.tree</field>
+            <field name="model">stok.masuk</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tanggal_terima"/>
+                    <field name="supplier_id"/>
+                    <field name="state" widget="badge" 
+                           decoration-info="state == 'draft'" 
+                           decoration-success="state == 'posted'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_stok_masuk_form" model="ir.ui.view">
+            <field name="name">stok.masuk.form</field>
+            <field name="model">stok.masuk</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_post" string="Validasi" type="object" 
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tanggal_terima" readonly="state == 'posted'"/>
+                            </group>
+                            <group>
+                                <field name="supplier_id" readonly="state == 'posted'" options="{'no_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines" name="lines">
+                                <field name="line_ids" readonly="state == 'posted'">
+                                    <tree editable="bottom">
+                                        <field name="bahan_id"/>
+                                        <field name="jumlah_terima"/>
+                                        <field name="satuan"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

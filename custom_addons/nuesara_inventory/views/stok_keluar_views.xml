@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Action -->
+        <record id="action_stok_keluar" model="ir.actions.act_window">
+            <field name="name">Pemakaian Harian</field>
+            <field name="res_model">stok.keluar</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_stok_keluar_tree" model="ir.ui.view">
+            <field name="name">stok.keluar.tree</field>
+            <field name="model">stok.keluar</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tanggal"/>
+                    <field name="shift"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'confirmed'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_stok_keluar_form" model="ir.ui.view">
+            <field name="name">stok.keluar.form</field>
+            <field name="model">stok.keluar</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_confirm_usage" string="Konfirmasi Pemakaian" type="object"
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tanggal" readonly="state == 'confirmed'"/>
+                            </group>
+                            <group>
+                                <field name="shift" readonly="state == 'confirmed'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines" name="lines">
+                                <field name="line_ids" readonly="state == 'confirmed'">
+                                    <tree editable="bottom">
+                                        <field name="bahan_id"/>
+                                        <field name="jumlah_pakai"/>
+                                        <field name="satuan"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Usage Analysis (Pivot) -->
+        <record id="view_stok_keluar_line_pivot" model="ir.ui.view">
+            <field name="name">stok.keluar.line.pivot</field>
+            <field name="model">stok.keluar.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Analisis Pemakaian">
+                    <field name="tanggal" interval="day" type="row"/>
+                    <field name="bahan_id" type="row"/>
+                    <field name="jumlah_pakai" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Usage Analysis (Graph) -->
+        <record id="view_stok_keluar_line_graph" model="ir.ui.view">
+            <field name="name">stok.keluar.line.graph</field>
+            <field name="model">stok.keluar.line</field>
+            <field name="arch" type="xml">
+                <graph string="Tren Pemakaian" type="line">
+                    <field name="tanggal" interval="day"/>
+                    <field name="jumlah_pakai" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+    </data>
+</odoo>

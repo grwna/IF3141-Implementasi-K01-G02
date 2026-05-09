@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="user_nuesara_admin" model="res.users">
+            <field name="name">Nuesara Admin</field>
+            <field name="login">admin.nuesara</field>
+            <field name="email">admin.nuesara@example.com</field>
+            <field name="password">admin123</field>
+            <field name="user_role">admin</field>
+            <field name="notification_type">email</field>
+            <field name="alert_stock_low">1</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_admin')])]"/>
+        </record>
+
+        <record id="user_nuesara_head" model="res.users">
+            <field name="name">Nuesara Head Divisi</field>
+            <field name="login">head.nuesara</field>
+            <field name="email">head.nuesara@example.com</field>
+            <field name="password">admin123</field>
+            <field name="user_role">head</field>
+            <field name="notification_type">email</field>
+            <field name="alert_stock_low">1</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_head')])]"/>
+        </record>
+
+        <record id="user_nuesara_staf" model="res.users">
+            <field name="name">Nuesara Staf Bar Kitchen</field>
+            <field name="login">staf.nuesara</field>
+            <field name="email">staf.nuesara@example.com</field>
+            <field name="password">admin123</field>
+            <field name="user_role">staf</field>
+            <field name="notification_type">push</field>
+            <field name="alert_stock_low">1</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_staf')])]"/>
+        </record>
+
+        <record id="user_nuesara_finance" model="res.users">
+            <field name="name">Nuesara Finance</field>
+            <field name="login">finance.nuesara</field>
+            <field name="email">finance.nuesara@example.com</field>
+            <field name="password">admin123</field>
+            <field name="user_role">finance</field>
+            <field name="notification_type">email</field>
+            <field name="alert_stock_low">0</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_finance')])]"/>
+        </record>
+
+        <record id="user_nuesara_owner" model="res.users">
+            <field name="name">Nuesara Owner</field>
+            <field name="login">owner.nuesara</field>
+            <field name="email">owner.nuesara@example.com</field>
+            <field name="password">admin123</field>
+            <field name="user_role">owner</field>
+            <field name="notification_type">email</field>
+            <field name="alert_stock_low">0</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_owner')])]"/>
+        </record>
+    </data>
+</odoo>

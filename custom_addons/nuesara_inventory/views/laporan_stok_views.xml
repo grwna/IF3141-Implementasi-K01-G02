@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_laporan_stok_harian_tree" model="ir.ui.view">
+            <field name="name">laporan.stok.harian.tree</field>
+            <field name="model">laporan.stok.harian</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="tanggal"/>
+                    <field name="bahan_id"/>
+                    <field name="total_masuk"/>
+                    <field name="total_keluar"/>
+                    <field name="saldo_akhir"/>
+                    <field name="satuan"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_harian_pivot" model="ir.ui.view">
+            <field name="name">laporan.stok.harian.pivot</field>
+            <field name="model">laporan.stok.harian</field>
+            <field name="arch" type="xml">
+                <pivot string="Laporan Harian">
+                    <field name="tanggal_group" type="row"/>
+                    <field name="bahan_id" type="row"/>
+                    <field name="total_masuk" type="measure"/>
+                    <field name="total_keluar" type="measure"/>
+                    <field name="saldo_akhir" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_harian_graph" model="ir.ui.view">
+            <field name="name">laporan.stok.harian.graph</field>
+            <field name="model">laporan.stok.harian</field>
+            <field name="arch" type="xml">
+                <graph string="Laporan Harian" type="bar">
+                    <field name="tanggal" interval="day"/>
+                    <field name="total_masuk" type="measure"/>
+                    <field name="total_keluar" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_harian_search" model="ir.ui.view">
+            <field name="name">laporan.stok.harian.search</field>
+            <field name="model">laporan.stok.harian</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="tanggal"/>
+                    <field name="bahan_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tanggal" name="group_tanggal" context="{'group_by': 'tanggal_group'}"/>
+                        <filter string="Bahan" name="group_bahan" context="{'group_by': 'bahan_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_laporan_harian" model="ir.actions.act_window">
+            <field name="name">Laporan Harian</field>
+            <field name="res_model">laporan.stok.harian</field>
+            <field name="view_mode">tree,pivot,graph</field>
+        </record>
+
+        <record id="action_laporan_harian_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_laporan_stok_harian_tree"/>
+            <field name="act_window_id" ref="action_laporan_harian"/>
+        </record>
+
+        <record id="action_laporan_harian_pivot_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_laporan_stok_harian_pivot"/>
+            <field name="act_window_id" ref="action_laporan_harian"/>
+        </record>
+
+        <record id="action_laporan_harian_graph_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_laporan_stok_harian_graph"/>
+            <field name="act_window_id" ref="action_laporan_harian"/>
+        </record>
+
+        <record id="view_laporan_stok_bulanan_tree" model="ir.ui.view">
+            <field name="name">laporan.stok.bulanan.tree</field>
+            <field name="model">laporan.stok.bulanan</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="bulan"/>
+                    <field name="bahan_id"/>
+                    <field name="total_masuk"/>
+                    <field name="total_keluar"/>
+                    <field name="rata_rata_pemakaian_harian"/>
+                    <field name="saldo_akhir"/>
+                    <field name="satuan"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_bulanan_pivot" model="ir.ui.view">
+            <field name="name">laporan.stok.bulanan.pivot</field>
+            <field name="model">laporan.stok.bulanan</field>
+            <field name="arch" type="xml">
+                <pivot string="Laporan Bulanan">
+                    <field name="bulan_group" type="row"/>
+                    <field name="bahan_id" type="row"/>
+                    <field name="total_masuk" type="measure"/>
+                    <field name="total_keluar" type="measure"/>
+                    <field name="saldo_akhir" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_bulanan_graph" model="ir.ui.view">
+            <field name="name">laporan.stok.bulanan.graph</field>
+            <field name="model">laporan.stok.bulanan</field>
+            <field name="arch" type="xml">
+                <graph string="Laporan Bulanan" type="bar">
+                    <field name="bulan" interval="month"/>
+                    <field name="total_masuk" type="measure"/>
+                    <field name="total_keluar" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_laporan_stok_bulanan_search" model="ir.ui.view">
+            <field name="name">laporan.stok.bulanan.search</field>
+            <field name="model">laporan.stok.bulanan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="bulan"/>
+                    <field name="bahan_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Bulan" name="group_bulan" context="{'group_by': 'bulan_group'}"/>
+                        <filter string="Bahan" name="group_bahan" context="{'group_by': 'bahan_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_laporan_bulanan" model="ir.actions.act_window">
+            <field name="name">Laporan Bulanan</field>
+            <field name="res_model">laporan.stok.bulanan</field>
+            <field name="view_mode">tree,pivot,graph</field>
+        </record>
+
+        <record id="action_laporan_bulanan_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_laporan_stok_bulanan_tree"/>
+            <field name="act_window_id" ref="action_laporan_bulanan"/>
+        </record>
+
+        <record id="action_laporan_bulanan_pivot_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_laporan_stok_bulanan_pivot"/>
+            <field name="act_window_id" ref="action_laporan_bulanan"/>
+        </record>
+
+        <record id="action_laporan_bulanan_graph_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_laporan_stok_bulanan_graph"/>
+            <field name="act_window_id" ref="action_laporan_bulanan"/>
+        </record>
+    </data>
+</odoo>

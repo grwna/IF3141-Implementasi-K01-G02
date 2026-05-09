@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_notification_wizard_form" model="ir.ui.view">
+            <field name="name">nuesara.stock.notification.wizard.form</field>
+            <field name="model">nuesara.stock.notification.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Notifikasi Stok">
+                    <sheet>
+                        <group>
+                            <field name="title" readonly="1" nolabel="1" class="fw-bold"/>
+                            <field name="message" readonly="1" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Tutup" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

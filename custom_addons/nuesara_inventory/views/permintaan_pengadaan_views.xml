@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_permintaan_pengadaan_tree" model="ir.ui.view">
+            <field name="name">permintaan.pengadaan.tree</field>
+            <field name="model">permintaan.pengadaan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="tanggal_permintaan"/>
+                    <field name="supplier_id"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'sent'"/>
+                    <field name="tanggal_kirim"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_permintaan_pengadaan_form" model="ir.ui.view">
+            <field name="name">permintaan.pengadaan.form</field>
+            <field name="model">permintaan.pengadaan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_send_to_supplier" string="Kirim ke Supplier" type="object"
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tanggal_permintaan" readonly="state == 'sent'"/>
+                            </group>
+                            <group>
+                                <field name="supplier_id" readonly="state == 'sent'" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="tanggal_kirim"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Daftar Bahan">
+                                <field name="line_ids" readonly="state == 'sent'">
+                                    <tree editable="bottom">
+                                        <field name="bahan_id"/>
+                                        <field name="jumlah"/>
+                                        <field name="satuan"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Dokumen Permintaan">
+                                <field name="dokumen_permintaan" nolabel="1" readonly="1"
+                                       placeholder="Dokumen permintaan akan dibuat saat tombol Kirim ke Supplier ditekan."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_permintaan_pengadaan_search" model="ir.ui.view">
+            <field name="name">permintaan.pengadaan.search</field>
+            <field name="model">permintaan.pengadaan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="supplier_id"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Terkirim" name="sent" domain="[('state', '=', 'sent')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Supplier" name="group_supplier" context="{'group_by': 'supplier_id'}"/>
+                        <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_permintaan_pengadaan" model="ir.actions.act_window">
+            <field name="name">Permintaan ke Supplier</field>
+            <field name="res_model">permintaan.pengadaan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
