@@ -6,3 +6,4 @@ from . import res_users
 from . import activity_log
 from . import laporan_stok
 from . import permintaan_pengadaan
+from . import stock_notification_wizard

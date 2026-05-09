@@ -23,3 +23,6 @@ access_stok_keluar_line_admin,stok.keluar.line.admin,model_stok_keluar_line,grou
 access_laporan_harian_admin,laporan.stok.harian.admin,model_laporan_stok_harian,group_nuesara_admin,1,0,0,0
 access_laporan_bulanan_admin,laporan.stok.bulanan.admin,model_laporan_stok_bulanan,group_nuesara_admin,1,0,0,0
 access_activity_log_admin,nuesara.activity.log.admin,model_nuesara_activity_log,group_nuesara_admin,1,0,0,0
+access_stock_notification_wizard_staf,nuesara.stock.notification.wizard.staf,model_nuesara_stock_notification_wizard,group_nuesara_staf,1,1,1,0
+access_stock_notification_wizard_head,nuesara.stock.notification.wizard.head,model_nuesara_stock_notification_wizard,group_nuesara_head,1,1,1,0
+access_stock_notification_wizard_admin,nuesara.stock.notification.wizard.admin,model_nuesara_stock_notification_wizard,group_nuesara_admin,1,1,1,0

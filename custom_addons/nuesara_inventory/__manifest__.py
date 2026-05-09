@@ -17,9 +17,12 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'data/demo_users.xml',
+        'data/demo_data.xml',
         'views/bahan_baku_views.xml',
         'views/stok_masuk_views.xml',
         'views/stok_keluar_views.xml',
+        'views/stock_notification_wizard_views.xml',
         'views/laporan_stok_views.xml',
         'views/permintaan_pengadaan_views.xml',
         'views/activity_log_views.xml',

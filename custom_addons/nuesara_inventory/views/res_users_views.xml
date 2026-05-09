@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="view_nuesara_profile_form" model="ir.ui.view">
+            <field name="name">res.users.nuesara.profile.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Profil Saya" create="0" delete="0">
+                    <header>
+                        <button name="action_change_password" string="Ubah Password" type="object" class="btn-primary"/>
+                        <button name="action_logout" string="Logout" type="object" class="btn-secondary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Identitas">
+                                <field name="login" readonly="1"/>
+                                <field name="user_role" widget="badge" readonly="1"/>
+                            </group>
+                            <group string="Keamanan">
+                                <field name="password_last_updated" readonly="1"/>
+                                <field name="two_factor_auth" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Notifikasi">
+                                <field name="notification_type"/>
+                                <field name="alert_stock_low"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_nuesara_profile_server" model="ir.actions.server">
+            <field name="name">Profil Saya</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">action = env.user.action_open_nuesara_profile()</field>
+        </record>
+
         <record id="view_users_form_nuesara_inherits" model="ir.ui.view">
             <field name="name">res.users.form.nuesara.inherits</field>
             <field name="model">res.users</field>
@@ -40,6 +82,7 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="nuesara_profile_simple" string="Profil &amp; Pengaturan">
                         <header>
+                            <button name="action_change_password" string="Ubah Password" type="object" class="btn-primary"/>
                             <button name="action_logout" string="Logout" type="object" class="btn-secondary"/>
                         </header>
                         <group>
@@ -49,6 +92,7 @@
                             </group>
                             <group string="Pengaturan">
                                 <field name="two_factor_auth" widget="boolean_toggle"/>
+                                <field name="notification_type"/>
                                 <field name="alert_stock_low"/>
                             </group>
                         </group>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="partner_supplier_nusantara" model="res.partner">
+            <field name="name">PT Supplier Nusantara</field>
+            <field name="is_company">1</field>
+            <field name="email">sales@suppliernusantara.test</field>
+            <field name="phone">021-555-0101</field>
+        </record>
+
+        <record id="partner_supplier_kopi" model="res.partner">
+            <field name="name">CV Kopi Aroma</field>
+            <field name="is_company">1</field>
+            <field name="email">order@kopiaroma.test</field>
+            <field name="phone">022-555-0110</field>
+        </record>
+
+        <record id="bahan_kopi_arabika" model="bahan.baku">
+            <field name="name">Kopi Arabika</field>
+            <field name="kategori">bahan_kering</field>
+            <field name="satuan">kg</field>
+            <field name="saldo_stok">32</field>
+            <field name="nilai_minimum">10</field>
+            <field name="estimasi_pemakaian_harian">2.5</field>
+        </record>
+
+        <record id="bahan_susu_fresh" model="bahan.baku">
+            <field name="name">Susu Fresh</field>
+            <field name="kategori">cairan</field>
+            <field name="satuan">l</field>
+            <field name="saldo_stok">8</field>
+            <field name="nilai_minimum">12</field>
+            <field name="estimasi_pemakaian_harian">4</field>
+        </record>
+
+        <record id="bahan_gula_pasir" model="bahan.baku">
+            <field name="name">Gula Pasir</field>
+            <field name="kategori">bahan_kering</field>
+            <field name="satuan">kg</field>
+            <field name="saldo_stok">18</field>
+            <field name="nilai_minimum">8</field>
+            <field name="estimasi_pemakaian_harian">1.5</field>
+        </record>
+
+        <record id="bahan_roti_tawar" model="bahan.baku">
+            <field name="name">Roti Tawar</field>
+            <field name="kategori">bahan_basah</field>
+            <field name="satuan">pcs</field>
+            <field name="saldo_stok">0</field>
+            <field name="nilai_minimum">20</field>
+            <field name="estimasi_pemakaian_harian">12</field>
+        </record>
+
+        <record id="stok_masuk_001" model="stok.masuk">
+            <field name="tanggal_terima">2026-05-05</field>
+            <field name="supplier_id" ref="partner_supplier_kopi"/>
+            <field name="state">posted</field>
+        </record>
+
+        <record id="stok_masuk_001_line_01" model="stok.masuk.line">
+            <field name="stok_masuk_id" ref="stok_masuk_001"/>
+            <field name="bahan_id" ref="bahan_kopi_arabika"/>
+            <field name="jumlah_terima">20</field>
+        </record>
+
+        <record id="stok_masuk_001_line_02" model="stok.masuk.line">
+            <field name="stok_masuk_id" ref="stok_masuk_001"/>
+            <field name="bahan_id" ref="bahan_gula_pasir"/>
+            <field name="jumlah_terima">10</field>
+        </record>
+
+        <record id="stok_masuk_002" model="stok.masuk">
+            <field name="tanggal_terima">2026-05-06</field>
+            <field name="supplier_id" ref="partner_supplier_nusantara"/>
+            <field name="state">posted</field>
+        </record>
+
+        <record id="stok_masuk_002_line_01" model="stok.masuk.line">
+            <field name="stok_masuk_id" ref="stok_masuk_002"/>
+            <field name="bahan_id" ref="bahan_susu_fresh"/>
+            <field name="jumlah_terima">15</field>
+        </record>
+
+        <record id="stok_keluar_001" model="stok.keluar">
+            <field name="tanggal">2026-05-06</field>
+            <field name="shift">pagi</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="stok_keluar_001_line_01" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_001"/>
+            <field name="bahan_id" ref="bahan_kopi_arabika"/>
+            <field name="jumlah_pakai">4</field>
+        </record>
+
+        <record id="stok_keluar_001_line_02" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_001"/>
+            <field name="bahan_id" ref="bahan_susu_fresh"/>
+            <field name="jumlah_pakai">7</field>
+        </record>
+
+        <record id="stok_keluar_002" model="stok.keluar">
+            <field name="tanggal">2026-05-07</field>
+            <field name="shift">siang</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="stok_keluar_002_line_01" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_002"/>
+            <field name="bahan_id" ref="bahan_gula_pasir"/>
+            <field name="jumlah_pakai">2</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo" model="stok.keluar">
+            <field name="tanggal">2026-05-09</field>
+            <field name="shift">malam</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo_line_01" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_notifikasi_demo"/>
+            <field name="bahan_id" ref="bahan_susu_fresh"/>
+            <field name="jumlah_pakai">7</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo_02" model="stok.keluar">
+            <field name="tanggal">2026-05-09</field>
+            <field name="shift">malam</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo_02_line_01" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_notifikasi_demo_02"/>
+            <field name="bahan_id" ref="bahan_gula_pasir"/>
+            <field name="jumlah_pakai">9</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo_03" model="stok.keluar">
+            <field name="tanggal">2026-05-09</field>
+            <field name="shift">malam</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="stok_keluar_notifikasi_demo_03_line_01" model="stok.keluar.line">
+            <field name="stok_keluar_id" ref="stok_keluar_notifikasi_demo_03"/>
+            <field name="bahan_id" ref="bahan_kopi_arabika"/>
+            <field name="jumlah_pakai">23</field>
+        </record>
+
+        <record id="permintaan_pengadaan_001" model="permintaan.pengadaan">
+            <field name="tanggal_permintaan">2026-05-08</field>
+            <field name="supplier_id" ref="partner_supplier_nusantara"/>
+            <field name="state">sent</field>
+            <field name="tanggal_kirim">2026-05-08 09:30:00</field>
+            <field name="dokumen_permintaan">DOKUMEN PERMINTAAN PENGADAAN
+Supplier: PT Supplier Nusantara
+
+Daftar Bahan:
+1. Susu Fresh - 24.00 Liter
+2. Roti Tawar - 80.00 Pcs</field>
+        </record>
+
+        <record id="permintaan_pengadaan_001_line_01" model="permintaan.pengadaan.line">
+            <field name="permintaan_id" ref="permintaan_pengadaan_001"/>
+            <field name="bahan_id" ref="bahan_susu_fresh"/>
+            <field name="jumlah">24</field>
+        </record>
+
+        <record id="permintaan_pengadaan_001_line_02" model="permintaan.pengadaan.line">
+            <field name="permintaan_id" ref="permintaan_pengadaan_001"/>
+            <field name="bahan_id" ref="bahan_roti_tawar"/>
+            <field name="jumlah">80</field>
+        </record>
+
+        <record id="activity_log_demo_001" model="nuesara.activity.log">
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="action">create</field>
+            <field name="model_name">Master Data Bahan Baku</field>
+            <field name="record_name">Kopi Arabika</field>
+            <field name="note">Data bahan baku contoh dibuat untuk kebutuhan dokumentasi implementasi.</field>
+        </record>
+
+        <record id="activity_log_demo_002" model="nuesara.activity.log">
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="action">post</field>
+            <field name="model_name">Pencatatan Stok Masuk</field>
+            <field name="record_name">Stok Masuk Supplier</field>
+            <field name="note">Stok masuk contoh sudah berstatus posted.</field>
+        </record>
+
+        <record id="activity_log_demo_003" model="nuesara.activity.log">
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="action">confirm</field>
+            <field name="model_name">Pencatatan Pemakaian Harian</field>
+            <field name="record_name">Pemakaian Shift Pagi</field>
+            <field name="note">Pemakaian harian contoh sudah berstatus confirmed.</field>
+        </record>
+    </data>
+</odoo>

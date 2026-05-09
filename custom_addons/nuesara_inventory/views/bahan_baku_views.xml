@@ -45,7 +45,7 @@
             <field name="name">bahan.baku.tree</field>
             <field name="model">bahan.baku</field>
             <field name="arch" type="xml">
-                <tree delete="0">
+                <tree string="Master Bahan Baku" delete="0" default_order="name asc">
                     <field name="name" class="fw-bold"/>
                     <field name="kategori"/>
                     <field name="saldo_stok"/>
@@ -57,6 +57,10 @@
                            decoration-success="status_stok == 'aman'"/>
                 </tree>
             </field>
+        </record>
+
+        <record id="action_bahan_baku_master" model="ir.actions.act_window">
+            <field name="view_id" ref="view_bahan_baku_tree"/>
         </record>
 
         <record id="view_bahan_baku_threshold_tree" model="ir.ui.view">
@@ -91,24 +95,29 @@
             <field name="name">bahan.baku.form</field>
             <field name="model">bahan.baku</field>
             <field name="arch" type="xml">
-                <form delete="0">
+                <form string="Bahan Baku" delete="0">
                     <header>
-                        <button name="action_open_delete_wizard" type="object" string="Hapus"
-                                confirm="Konfirmasi tahap 1: lanjutkan proses hapus bahan baku?"
-                                class="btn-secondary"/>
+                        <button name="action_open_delete_wizard" type="object" string="Arsipkan"
+                                confirm="Konfirmasi tahap 1: lanjutkan proses arsip bahan baku?"
+                                class="btn-secondary" invisible="not id"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
+                            <label for="name"/>
                             <h1>
-                                <field name="name" placeholder="Nama Bahan..."/>
+                                <field name="name" placeholder="Contoh: Kopi Arabika"/>
                             </h1>
                         </div>
                         <group>
-                            <group string="Group Dasar">
+                            <group string="Informasi Bahan">
                                 <field name="kategori"/>
                                 <field name="satuan"/>
+                                <field name="status_stok" widget="badge" readonly="1"
+                                       decoration-danger="status_stok == 'habis'"
+                                       decoration-warning="status_stok == 'menipis'"
+                                       decoration-success="status_stok == 'aman'"/>
                             </group>
-                            <group string="Group Stok">
+                            <group string="Informasi Stok">
                                 <field name="saldo_stok"/>
                                 <field name="nilai_minimum"/>
                                 <field name="estimasi_pemakaian_harian"/>
@@ -119,17 +128,31 @@
             </field>
         </record>
 
+        <record id="action_bahan_baku_master_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bahan_baku_tree"/>
+            <field name="act_window_id" ref="action_bahan_baku_master"/>
+        </record>
+
+        <record id="action_bahan_baku_master_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_bahan_baku_form"/>
+            <field name="act_window_id" ref="action_bahan_baku_master"/>
+        </record>
+
         <record id="view_bahan_baku_delete_wizard_form" model="ir.ui.view">
-            <field name="name">bahan.baku.delete.wizard.form</field>
+            <field name="name">bahan.baku.archive.wizard.form</field>
             <field name="model">bahan.baku.delete.wizard</field>
             <field name="arch" type="xml">
-                <form string="Konfirmasi Hapus Tahap 2">
+                <form string="Konfirmasi Arsip Bahan Baku">
                     <group>
                         <field name="bahan_id"/>
                         <field name="confirmation_text" placeholder="HAPUS"/>
                     </group>
                     <footer>
-                        <button name="action_confirm_delete" string="Konfirmasi Hapus Permanen"
+                        <button name="action_confirm_delete" string="Konfirmasi Arsip"
                                 type="object" class="btn-primary"/>
                         <button string="Batal" class="btn-secondary" special="cancel"/>
                     </footer>

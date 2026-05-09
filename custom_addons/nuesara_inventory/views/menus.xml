@@ -104,7 +104,7 @@
         <menuitem id="nuesara_profile_menu"
                   name="Profil Saya"
                   parent="nuesara_config_menu"
-                  action="base.action_res_users_my"
+                  action="nuesara_inventory.action_nuesara_profile_server"
                   groups="nuesara_inventory.group_nuesara_staf,nuesara_inventory.group_nuesara_head,nuesara_inventory.group_nuesara_finance,nuesara_inventory.group_nuesara_owner,nuesara_inventory.group_nuesara_admin"
                   sequence="10"/>
     </data>

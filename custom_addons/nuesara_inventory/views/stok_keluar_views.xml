@@ -30,7 +30,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="action_confirm_usage" string="Simpan" type="object"
+                        <button name="action_confirm_usage" string="Konfirmasi Pemakaian" type="object"
                                 class="btn-primary" invisible="state != 'draft'"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
                     </header>

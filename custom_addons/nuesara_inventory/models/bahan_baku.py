@@ -6,6 +6,7 @@ class BahanBaku(models.Model):
     _name = 'bahan.baku'
     _description = 'Master Data Bahan Baku'
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Nama Bahan", required=True)
     kategori = fields.Selection([
         ('bahan_kering', 'Bahan Kering'),
@@ -66,6 +67,17 @@ class BahanBaku(models.Model):
         self._log_inventory_activity("unlink", "Data bahan baku dihapus.")
         return super().unlink()
 
+    def action_open_archive_wizard(self):
+        self.ensure_one()
+        return {
+            'name': 'Konfirmasi Arsip Bahan Baku',
+            'type': 'ir.actions.act_window',
+            'res_model': 'bahan.baku.delete.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_bahan_id': self.id},
+        }
+
     def _log_inventory_activity(self, action, note):
         log_model = self.env['nuesara.activity.log'].sudo()
         for record in self:
@@ -77,20 +89,12 @@ class BahanBaku(models.Model):
             )
 
     def action_open_delete_wizard(self):
-        self.ensure_one()
-        return {
-            'name': 'Konfirmasi Hapus Tahap 2',
-            'type': 'ir.actions.act_window',
-            'res_model': 'bahan.baku.delete.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'default_bahan_id': self.id},
-        }
+        return self.action_open_archive_wizard()
 
 
 class BahanBakuDeleteWizard(models.TransientModel):
     _name = 'bahan.baku.delete.wizard'
-    _description = 'Konfirmasi Hapus Bahan Baku'
+    _description = 'Konfirmasi Arsip Bahan Baku'
 
     bahan_id = fields.Many2one('bahan.baku', string="Bahan Baku", required=True, readonly=True)
     confirmation_text = fields.Char(string="Ketik HAPUS")
@@ -98,6 +102,7 @@ class BahanBakuDeleteWizard(models.TransientModel):
     def action_confirm_delete(self):
         self.ensure_one()
         if self.confirmation_text != 'HAPUS':
-            raise ValidationError("Ketik HAPUS untuk mengonfirmasi penghapusan tahap kedua.")
-        self.bahan_id.unlink()
+            raise ValidationError("Ketik HAPUS untuk mengonfirmasi pengarsipan bahan baku.")
+        self.bahan_id.write({'active': False})
+        self.bahan_id._log_inventory_activity("archive", "Data bahan baku diarsipkan.")
         return {'type': 'ir.actions.act_window_close'}

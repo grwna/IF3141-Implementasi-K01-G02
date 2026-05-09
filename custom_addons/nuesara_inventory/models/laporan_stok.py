@@ -9,6 +9,9 @@ class LaporanStokHarian(models.Model):
     _order = 'tanggal desc, bahan_id'
 
     tanggal = fields.Date(string="Tanggal", readonly=True)
+    tanggal_group = fields.Char(string="Tanggal Rekap", readonly=True)
+    bulan = fields.Date(string="Bulan", readonly=True)
+    bulan_group = fields.Char(string="Bulan Rekap", readonly=True)
     bahan_id = fields.Many2one('bahan.baku', string="Bahan Baku", readonly=True)
     satuan = fields.Selection([
         ('gr', 'Gram'),
@@ -71,6 +74,9 @@ class LaporanStokHarian(models.Model):
                 SELECT
                     ROW_NUMBER() OVER (ORDER BY tb.tanggal DESC, tb.bahan_id) AS id,
                     tb.tanggal,
+                    TO_CHAR(tb.tanggal, 'YYYY-MM-DD') AS tanggal_group,
+                    DATE_TRUNC('month', tb.tanggal)::date AS bulan,
+                    TO_CHAR(DATE_TRUNC('month', tb.tanggal)::date, 'YYYY-MM') AS bulan_group,
                     tb.bahan_id,
                     bb.satuan,
                     COALESCE(m.total_masuk, 0) AS total_masuk,
@@ -93,6 +99,9 @@ class LaporanStokBulanan(models.Model):
     _order = 'bulan desc, bahan_id'
 
     bulan = fields.Date(string="Bulan", readonly=True)
+    bulan_group = fields.Char(string="Bulan Rekap", readonly=True)
+    tanggal = fields.Date(string="Tanggal", readonly=True)
+    tanggal_group = fields.Char(string="Tanggal Rekap", readonly=True)
     bahan_id = fields.Many2one('bahan.baku', string="Bahan Baku", readonly=True)
     satuan = fields.Selection([
         ('gr', 'Gram'),
@@ -156,6 +165,9 @@ class LaporanStokBulanan(models.Model):
                 SELECT
                     ROW_NUMBER() OVER (ORDER BY bbn.bulan DESC, bbn.bahan_id) AS id,
                     bbn.bulan,
+                    TO_CHAR(bbn.bulan, 'YYYY-MM') AS bulan_group,
+                    bbn.bulan AS tanggal,
+                    TO_CHAR(bbn.bulan, 'YYYY-MM-DD') AS tanggal_group,
                     bbn.bahan_id,
                     bb.satuan,
                     COALESCE(m.total_masuk, 0) AS total_masuk,

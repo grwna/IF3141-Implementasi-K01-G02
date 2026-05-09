@@ -59,6 +59,18 @@ class ResUsers(models.Model):
             'context': {'default_user_ids': [(4, self.id)]},
         }
 
+    def action_open_nuesara_profile(self):
+        user = self.env.user
+        return {
+            'name': 'Profil Saya',
+            'type': 'ir.actions.act_window',
+            'res_model': 'res.users',
+            'res_id': user.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('nuesara_inventory.view_nuesara_profile_form').id,
+            'target': 'current',
+        }
+
     def action_logout(self):
         self.env['nuesara.activity.log'].sudo().log_action(
             action='logout',
