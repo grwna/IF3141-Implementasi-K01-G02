@@ -5,7 +5,7 @@
             <field name="name">Nuesara Admin</field>
             <field name="login">admin.nuesara</field>
             <field name="email">admin.nuesara@example.com</field>
-            <field name="password">admin123</field>
+            <field name="password">admin1123</field>
             <field name="user_role">admin</field>
             <field name="notification_type">email</field>
             <field name="alert_stock_low">1</field>
@@ -16,7 +16,7 @@
             <field name="name">Nuesara Head Divisi</field>
             <field name="login">head.nuesara</field>
             <field name="email">head.nuesara@example.com</field>
-            <field name="password">admin123</field>
+            <field name="password">head1123</field>
             <field name="user_role">head</field>
             <field name="notification_type">email</field>
             <field name="alert_stock_low">1</field>
@@ -27,7 +27,7 @@
             <field name="name">Nuesara Staf Bar Kitchen</field>
             <field name="login">staf.nuesara</field>
             <field name="email">staf.nuesara@example.com</field>
-            <field name="password">admin123</field>
+            <field name="password">staf1123</field>
             <field name="user_role">staf</field>
             <field name="notification_type">push</field>
             <field name="alert_stock_low">1</field>
@@ -38,7 +38,7 @@
             <field name="name">Nuesara Finance</field>
             <field name="login">finance.nuesara</field>
             <field name="email">finance.nuesara@example.com</field>
-            <field name="password">admin123</field>
+            <field name="password">finance1123</field>
             <field name="user_role">finance</field>
             <field name="notification_type">email</field>
             <field name="alert_stock_low">0</field>
@@ -49,7 +49,7 @@
             <field name="name">Nuesara Owner</field>
             <field name="login">owner.nuesara</field>
             <field name="email">owner.nuesara@example.com</field>
-            <field name="password">admin123</field>
+            <field name="password">owner1123</field>
             <field name="user_role">owner</field>
             <field name="notification_type">email</field>
             <field name="alert_stock_low">0</field>
