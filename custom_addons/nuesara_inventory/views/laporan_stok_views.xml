@@ -8,6 +8,7 @@
                 <tree create="0" edit="0" delete="0">
                     <field name="tanggal"/>
                     <field name="bahan_id"/>
+                    <field name="kategori"/>
                     <field name="total_masuk"/>
                     <field name="total_keluar"/>
                     <field name="saldo_akhir"/>
@@ -22,6 +23,7 @@
             <field name="arch" type="xml">
                 <pivot string="Laporan Harian">
                     <field name="tanggal_group" type="row"/>
+                    <field name="kategori" type="row"/>
                     <field name="bahan_id" type="row"/>
                     <field name="total_masuk" type="measure"/>
                     <field name="total_keluar" type="measure"/>
@@ -49,8 +51,10 @@
                 <search>
                     <field name="tanggal"/>
                     <field name="bahan_id"/>
+                    <field name="kategori"/>
                     <group expand="0" string="Group By">
                         <filter string="Tanggal" name="group_tanggal" context="{'group_by': 'tanggal_group'}"/>
+                        <filter string="Kategori" name="group_kategori" context="{'group_by': 'kategori'}"/>
                         <filter string="Bahan" name="group_bahan" context="{'group_by': 'bahan_id'}"/>
                     </group>
                 </search>
@@ -91,6 +95,7 @@
                 <tree create="0" edit="0" delete="0">
                     <field name="bulan"/>
                     <field name="bahan_id"/>
+                    <field name="kategori"/>
                     <field name="total_masuk"/>
                     <field name="total_keluar"/>
                     <field name="rata_rata_pemakaian_harian"/>
@@ -106,6 +111,7 @@
             <field name="arch" type="xml">
                 <pivot string="Laporan Bulanan">
                     <field name="bulan_group" type="row"/>
+                    <field name="kategori" type="row"/>
                     <field name="bahan_id" type="row"/>
                     <field name="total_masuk" type="measure"/>
                     <field name="total_keluar" type="measure"/>
@@ -133,8 +139,10 @@
                 <search>
                     <field name="bulan"/>
                     <field name="bahan_id"/>
+                    <field name="kategori"/>
                     <group expand="0" string="Group By">
                         <filter string="Bulan" name="group_bulan" context="{'group_by': 'bulan_group'}"/>
+                        <filter string="Kategori" name="group_kategori" context="{'group_by': 'kategori'}"/>
                         <filter string="Bahan" name="group_bahan" context="{'group_by': 'bahan_id'}"/>
                     </group>
                 </search>

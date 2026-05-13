@@ -13,6 +13,12 @@ class LaporanStokHarian(models.Model):
     bulan = fields.Date(string="Bulan", readonly=True)
     bulan_group = fields.Char(string="Bulan Rekap", readonly=True)
     bahan_id = fields.Many2one('bahan.baku', string="Bahan Baku", readonly=True)
+    kategori = fields.Selection([
+        ('bahan_kering', 'Bahan Kering'),
+        ('bahan_basah', 'Bahan Basah'),
+        ('cairan', 'Cairan'),
+        ('lainnya', 'Lainnya'),
+    ], string="Kategori", readonly=True)
     satuan = fields.Selection([
         ('gr', 'Gram'),
         ('kg', 'Kilogram'),
@@ -78,6 +84,7 @@ class LaporanStokHarian(models.Model):
                     DATE_TRUNC('month', tb.tanggal)::date AS bulan,
                     TO_CHAR(DATE_TRUNC('month', tb.tanggal)::date, 'YYYY-MM') AS bulan_group,
                     tb.bahan_id,
+                    bb.kategori,
                     bb.satuan,
                     COALESCE(m.total_masuk, 0) AS total_masuk,
                     COALESCE(k.total_keluar, 0) AS total_keluar,
@@ -103,6 +110,12 @@ class LaporanStokBulanan(models.Model):
     tanggal = fields.Date(string="Tanggal", readonly=True)
     tanggal_group = fields.Char(string="Tanggal Rekap", readonly=True)
     bahan_id = fields.Many2one('bahan.baku', string="Bahan Baku", readonly=True)
+    kategori = fields.Selection([
+        ('bahan_kering', 'Bahan Kering'),
+        ('bahan_basah', 'Bahan Basah'),
+        ('cairan', 'Cairan'),
+        ('lainnya', 'Lainnya'),
+    ], string="Kategori", readonly=True)
     satuan = fields.Selection([
         ('gr', 'Gram'),
         ('kg', 'Kilogram'),
@@ -169,6 +182,7 @@ class LaporanStokBulanan(models.Model):
                     bbn.bulan AS tanggal,
                     TO_CHAR(bbn.bulan, 'YYYY-MM-DD') AS tanggal_group,
                     bbn.bahan_id,
+                    bb.kategori,
                     bb.satuan,
                     COALESCE(m.total_masuk, 0) AS total_masuk,
                     COALESCE(k.total_keluar, 0) AS total_keluar,

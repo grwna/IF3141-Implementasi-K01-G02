@@ -5,7 +5,7 @@
             <field name="name">permintaan.pengadaan.tree</field>
             <field name="model">permintaan.pengadaan</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree delete="0">
                     <field name="name"/>
                     <field name="tanggal_permintaan"/>
                     <field name="supplier_id"/>
@@ -21,7 +21,7 @@
             <field name="name">permintaan.pengadaan.form</field>
             <field name="model">permintaan.pengadaan</field>
             <field name="arch" type="xml">
-                <form>
+                <form delete="0">
                     <header>
                         <button name="action_send_to_supplier" string="Kirim ke Supplier" type="object"
                                 class="btn-primary" invisible="state != 'draft'"/>
@@ -45,7 +45,7 @@
                         <notebook>
                             <page string="Daftar Bahan">
                                 <field name="line_ids" readonly="state == 'sent'">
-                                    <tree editable="bottom">
+                                    <tree editable="bottom" delete="0">
                                         <field name="bahan_id"/>
                                         <field name="jumlah"/>
                                         <field name="satuan"/>

@@ -13,7 +13,7 @@
             <field name="name">stok.keluar.tree</field>
             <field name="model">stok.keluar</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree delete="0">
                     <field name="tanggal"/>
                     <field name="shift"/>
                     <field name="state" widget="badge"
@@ -28,7 +28,7 @@
             <field name="name">stok.keluar.form</field>
             <field name="model">stok.keluar</field>
             <field name="arch" type="xml">
-                <form>
+                <form delete="0">
                     <header>
                         <button name="action_confirm_usage" string="Konfirmasi Pemakaian" type="object"
                                 class="btn-primary" invisible="state != 'draft'"/>
@@ -46,7 +46,7 @@
                         <notebook>
                             <page string="Lines" name="lines">
                                 <field name="line_ids" readonly="state == 'confirmed'">
-                                    <tree editable="bottom">
+                                    <tree editable="bottom" delete="0">
                                         <field name="bahan_id"/>
                                         <field name="jumlah_pakai"/>
                                         <field name="satuan"/>

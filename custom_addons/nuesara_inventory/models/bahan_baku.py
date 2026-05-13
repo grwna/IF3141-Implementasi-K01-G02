@@ -64,8 +64,7 @@ class BahanBaku(models.Model):
         return result
 
     def unlink(self):
-        self._log_inventory_activity("unlink", "Data bahan baku dihapus.")
-        return super().unlink()
+        raise ValidationError("Data bahan baku tidak dapat dihapus permanen. Gunakan tombol Arsipkan agar data dapat dipulihkan.")
 
     def action_open_archive_wizard(self):
         self.ensure_one()

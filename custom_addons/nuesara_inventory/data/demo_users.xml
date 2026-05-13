@@ -9,7 +9,7 @@
             <field name="user_role">admin</field>
             <field name="notification_type">email</field>
             <field name="alert_stock_low">1</field>
-            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('nuesara_inventory.group_nuesara_admin')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('base.group_system'), ref('nuesara_inventory.group_nuesara_admin')])]"/>
         </record>
 
         <record id="user_nuesara_head" model="res.users">
